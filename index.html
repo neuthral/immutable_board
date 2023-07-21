@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>alpine</title>
+  <link rel="icon" type="image/x-icon" href="" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/pico.min.css">
+  <link href='css/lato.css' rel='stylesheet' type='text/css'>
+  <script src="js/alpine.min.js" defer></script>
+  <style>
+    [x-cloak] {
+      display: none !important;
+    }
+    :root {
+      --primary: #f4511e;
+      background-color: #191A17;
+    }
+    body {
+      background-color: #131412;
+      color: #C3C9B7;
+    }
+    h1,
+    h2,
+    h3 {
+      color: #C3C9B7;
+    }
+    article {
+      background-color: #191A17;
+      font-size: smaller;
+      padding: 16px;
+      margin: 0;
+    }
+    ul li {
+      list-style: none;
+    }
+    .post ul {
+      font-family: monospace;
+      padding: 0;
+      margin: 0;
+    }
+    .post img {
+      float: left;
+      margin-right: 16px;
+    }
+    .post ul {
+      display: inline;
+    }
+    .post li {
+      display: inline-block;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: gray;
+      text-decoration: underline;
+    }
+    .post p {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <blockquote>
+      <img src="img/logo.svg#21" height="256" width="256" style="display: block; float: left; margin-right: 16px;">
+      <h1>immutable board</h1>
+      <ul x-data="news()" style="font-size: smaller;">
+        <li><u>news</u></li>
+        <template x-for="item in items">
+          <li x-text="item.timestamp +' - '+ item.text"></li>
+        </template>
+      </ul>
+      <footer style="clear: both;">
+        <cite>- Phasellus eget lacinia</cite>
+      </footer>
+    </blockquote>
+
+    <div>
+
+    </div>
+
+    <div>
+      <article x-data="dummy()" class="post">
+        <img x-bind:src="img_url" height="196px" width="196px">
+        <ul>
+          <li x-data="{img_name, img_url}">
+            <a x-bind:href="img_url" x-text="img_name"></a>
+          </li>
+          <li x-text="timestamp"></li>
+          <li x-text="title"></li>
+          <li x-text="cid"></li>
+        </ul>
+        <p x-text="text"></p>
+        <!-- comments here -->
+        <ul x-data="comments">
+          <template x-for="item in comments">
+            <li x-data="item" style="clear: both; text-decoration: none;">
+              <blockquote>
+                <template x-if="item.img_url">
+                  <img x-bind:src="item.img_url" height="80" width="80">
+                </template>
+                <ul>
+                  <template x-if="item.img_name">
+                    <li x-text="item.img_name"></li>
+                  </template>
+                  <li x-text="item.timestamp"></li>
+                  <li x-text="item.title"></li>
+                  <li x-text="item.cid"></li>
+                </ul>
+                <footer x-text="item.text"></footer>
+              </blockquote>
+            </li>
+          </template>
+        </ul>
+      </article>
+    </div>
+  </main>
+
+  <footer class="container">
+    asd
+    asd
+  </footer>
+
+  <script>
+    function dummy() {
+      return {
+        title: "alpine.js + pico.css",
+        cid: "8ahsd8aahsd8aahsd8asdhg8",
+        img_url: "img/github.svg",           // img CID here
+        img_name: "github.svg",
+        timestamp: "1689936133",
+        prev_cid: null,                       // this here if comment pointing to parent post
+        tag: "random",
+        text: "n\ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+        comments: [
+          {
+            title: "demo comment",
+            cid: "89sagd78gsa78dgasdasda",
+            img_url: "img/github.svg",           // img CID here
+            img_name: "github.svg",
+            timestamp: "1689937255",               // sort comments by timestamp
+            prev_cid: "8ahsd8aahsd8aahsd8asdhg8", // this here if comment pointing to parent post
+            text: "to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+          },
+          {
+            title: "demo comment",
+            cid: "89sagd78gsa78dgasdasda",
+            timestamp: "1689937255",               // sort comments by timestamp
+            prev_cid: "8ahsd8aahsd8aahsd8asdhg8", // this here if comment pointing to parent post
+            text: "to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+          },
+        ]
+      }
+    }
+
+    function news() {
+      return {
+        items: [
+          {
+            timestamp: "1689936133",
+            text: "first iteration of the board, will probably add to use git commit message here in the future"
+          },
+          {
+            timestamp: "1689936144",
+            text: "bom bom doo"
+          }
+        ],
+        latest_post: "8ahsd8aahsd8aahsd8asdhg8"
+      }
+    }
+
+  </script>
+</body>
+
+</html>
