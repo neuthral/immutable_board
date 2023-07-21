@@ -8,7 +8,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="css/pico.min.css">
   <link href='css/lato.css' rel='stylesheet' type='text/css'>
-  <script src="js/alpine.min.js" defer></script>
   <style>
     [x-cloak] {
       display: none !important;
@@ -120,9 +119,31 @@
   </main>
 
   <footer class="container">
-    asd
-    asd
+    <div class="grid" style="text-align: center;">
+      <div style="text-align: inherit;">
+        <img src="img/alpinedotjs.svg" height="64px" width="64px">
+      </div>
+      <div>
+        <img src="img/picocss.svg" height="64px" width="64px">
+      </div>
+      <div>
+        <img src="img/github.svg" height="64px" width="64px">
+      </div>
+    </div>
   </footer>
+
+  <script src="js/alpine.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/ipfs/dist/index.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const node = await Ipfs.create()
+
+      let data = news()
+      const block = (await node.dag.put(data))
+      console.log(new String(block))
+      
+    })
+  </script>
 
   <script>
     function dummy() {
